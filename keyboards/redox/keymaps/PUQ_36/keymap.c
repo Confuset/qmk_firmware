@@ -8,8 +8,7 @@
 #define _PUQ 0
 #define _SYMB 1
 #define _NAV 2
-#define _ADJUST 3
-#define _SYMFK 4
+#define _SYMFK 3
 
 #define SYM_L   MO(_SYMB)
 #define ESC_NAV_L   LT(_NAV, KC_ESCAPE)
@@ -134,15 +133,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 	return true;
 };
 
+/*qk_tap_dance_action_t tap_dance_actions[] = {};*/
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t* record)
+{
+	switch(keycode){
+		case ENT_FK_L:
+		case ESC_NAV_L:
+		case SPC_MEH:
+			return true;
+		default:
+			return false;
+	}
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_PUQ] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     RESET   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                                            XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     RESET   ,OS_MODE ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                                            XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,DE_P    ,DE_U    ,DIAKRIT ,DE_COMM ,DE_Q    ,XXXXXXX ,                          XXXXXXX ,DE_G    ,DE_C    ,DE_L    ,DE_M    ,DE_F    ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,DE_H    ,DE_I    ,E_LALT  ,A_LGUI  ,DE_O    ,XXXXXXX ,                          XXXXXXX ,DE_D    ,T_RGUI  ,R_RALT  ,DE_N    ,DE_S    ,XXXXXXX ,
+     XXXXXXX ,DE_H    ,DE_I    ,KC_E    ,KC_A    ,DE_O    ,XXXXXXX ,                          XXXXXXX ,DE_D    ,KC_T  ,KC_R      ,DE_N    ,DE_S    ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,DE_K    ,DE_Y    ,DE_DOT  ,DE_SCLN ,DE_X    ,XXXXXXX ,XXXXXXX ,        XXXXXXX ,XXXXXXX  ,DE_J    ,DE_V    ,DE_W    ,DE_B    ,DE_Z    ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤

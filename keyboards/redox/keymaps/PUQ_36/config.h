@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define SPLIT_USB_TIMEOUT_POLL 10
 
 #define TAPPING_TERM 175
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
