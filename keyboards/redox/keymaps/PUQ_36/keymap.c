@@ -25,7 +25,9 @@ enum custom_keycodes
   ELLIPSIS = SAFE_RANGE,
   DIAKRIT,
   OS_MODE,
-  OFF_FK
+  OFF_FK,
+  CIRCU,
+  GRAVE,
 };
 
 enum os_mode
@@ -112,6 +114,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 			return handle_OFF_FK(record);
 		case DIAKRIT:
 			return handle_DIAKRIT(record, &last_key_pressed);
+		case CIRCU:
+			if(record->event.pressed)
+			{
+				tap_key(DE_CIRC);
+				tap_key(KC_SPC);
+				return false;
+			}
+			break;
+		case GRAVE:
+			if(record->event.pressed)
+			{
+				tap_key(DE_GRV);
+				tap_key(KC_SPC);
+				return false;
+			}
+			break;
 		case ELLIPSIS:
 			if(record->event.pressed)
 			{
@@ -173,13 +191,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
      _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                                            _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,ELLIPSIS,DE_UNDS ,DE_LBRC ,DE_RBRC ,DE_CIRC ,_______ ,                          _______ ,DE_EXLM ,DE_LABK ,DE_RABK ,DE_EQL  ,DE_AMPR ,_______ ,
+     _______ ,ELLIPSIS,DE_UNDS ,DE_LBRC ,DE_RBRC ,CIRCU   ,_______ ,                          _______ ,DE_EXLM ,DE_LABK ,DE_RABK ,DE_EQL  ,DE_AMPR ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______ ,DE_BSLS ,DE_SLSH ,DE_LCBR ,DE_RCBR ,DE_ASTR ,_______ ,                          _______ ,DE_QUES ,DE_LPRN ,DE_RPRN ,DE_MINS ,DE_COLN ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,DE_HASH ,DE_DLR  ,DE_PIPE ,DE_TILD ,DE_GRV  ,_______ ,_______ ,        _______ ,_______ ,DE_PLUS ,DE_PERC ,DE_DQUO ,DE_QUOT ,DE_SCLN ,_______ ,
+     _______ ,DE_HASH ,DE_DLR  ,DE_PIPE ,DE_TILD ,GRAVE   ,_______ ,_______ ,        _______ ,_______ ,DE_PLUS ,DE_PERC ,DE_DQUO ,DE_QUOT ,DE_SCLN ,_______ ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     _______ ,_______ ,_______ ,_______ ,     KC_RALT ,    KC_APP  ,CTL_ALT ,        _______ ,_______ ,    _______ ,     _______ ,_______ ,_______ ,_______
+     _______ ,_______ ,_______ ,_______ ,     KC_RALT ,    _______ ,CTL_ALT ,        _______ ,_______ ,    _______ ,     _______ ,_______ ,_______ ,_______
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
