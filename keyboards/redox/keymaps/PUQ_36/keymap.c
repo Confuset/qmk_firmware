@@ -24,10 +24,14 @@ enum custom_keycodes
 {
   ELLIPSIS = SAFE_RANGE,
   DIAKRIT,
-  OS_MODE,
   OFF_FK,
   CIRCU,
   GRAVE,
+  OS_MODE,
+  D_20,
+  D_30,
+  D_40,
+  D_50
 };
 
 enum os_mode
@@ -37,6 +41,7 @@ enum os_mode
 };
 
 enum os_mode mode = WINDOWS;
+uint16_t delay = 20;
 uint16_t last_key_pressed = KC_NO;
 
 void tap_key(uint16_t keycode)
@@ -44,7 +49,7 @@ void tap_key(uint16_t keycode)
 	switch(mode)
 	{
 		case WINDOWS:
-			tap_code_delay(keycode, 20);
+			tap_code_delay(keycode, delay);
 			break;
 		case LINUX:
 			tap_code(keycode);
@@ -175,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_PUQ] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     RESET   ,OS_MODE ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                                            XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,RESET   ,
+     RESET   ,OS_MODE ,D_20    ,D_30    ,D_40    ,D_50    ,                                            XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,RESET   ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,DE_P    ,DE_U    ,DIAKRIT ,DE_COMM ,DE_Q    ,XXXXXXX ,                          XXXXXXX ,DE_G    ,DE_C    ,DE_L    ,DE_M    ,DE_F    ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
