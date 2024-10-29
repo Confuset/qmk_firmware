@@ -45,8 +45,13 @@ enum os_mode
 };
 
 enum os_mode mode = WINDOWS;
-uint16_t delay = 20;
+uint16_t delay = 0;
 uint16_t last_key_pressed = KC_NO;
+
+void keyboard_post_init_user(void)
+{
+	rgblight_setrgb(RGB_PINK);
+}
 
 void tap_key(uint16_t keycode)
 {
@@ -77,9 +82,15 @@ enum os_mode switch_mode(enum os_mode mode)
 {
 	switch (mode)
 	{
+		case LINUX:
+			rgblight_setrgb(RGB_BLUE);
+			delay = 20;
+			return WINDOWS;
+		case WINDOWS:
 		default:
-		case WINDOWS: return LINUX;
-		case LINUX: return WINDOWS;
+			rgblight_setrgb(RGB_RED);
+			delay = 0;
+			return LINUX;
 	}
 }
 
@@ -167,8 +178,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 				mode = switch_mode(mode);
 			return false;
 
+		case D_20:
+			delay = 20;
+			return false;
+		case D_30:
+			delay = 30;
+			return false;
+		case D_40:
+			delay = 40;
+			return false;
+		case D_50:
+			delay = 50;
+			return false;
+
 		case KC_RSFT:
 			return true;
+
+		case HL_R:
+			register_code(KC_LCTL);
+			tap_key(KC_UP);
+			tap_key(KC_DOWN);
+			tap_key(KC_RIGHT);
+			tap_key(KC_LEFT);
+			tap_key(KC_UP);
+			unregister_code(KC_LCTL);
+
+		case HL_ECB:
+			register_code(KC_LCTL);
+			tap_key(KC_UP);
+			tap_key(KC_RIGHT);
+			tap_key(KC_DOWN);
+			tap_key(KC_DOWN);
+			tap_key(KC_RIGHT);
+			unregister_code(KC_LCTL);
+
+		case HL_EAT:
+			register_code(KC_LCTL);
+			tap_key(KC_DOWN);
+			tap_key(KC_DOWN);
+			tap_key(KC_LEFT);
+			tap_key(KC_UP);
+			tap_key(KC_RIGHT);
+			unregister_code(KC_LCTL);
 
 	}
 
@@ -186,7 +237,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
      RESET   ,OS_MODE ,D_20    ,D_30    ,D_40    ,D_50    ,                                            XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,RESET   ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,DE_P    ,DE_U    ,DIAKRIT ,DE_COMM ,DE_Q    ,XXXXXXX ,                          XXXXXXX ,DE_G    ,DE_C    ,DE_L    ,DE_M    ,DE_F    ,XXXXXXX ,
+     XXXXXXX ,DE_P    ,DE_U    ,DIAKRIT ,DE_COMM ,DE_Q    ,XXXXXXX ,                          XXXXXXX ,DE_G    ,DE_C    ,DE_L    ,DE_M    ,DE_F    ,DF(_QWZ),
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,DE_H    ,DE_I    ,KC_E    ,KC_A    ,DE_O    ,XXXXXXX ,                          XXXXXXX ,DE_D    ,KC_T    ,KC_R    ,DE_N    ,DE_S    ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -214,7 +265,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
      _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                                            _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,KC_PGUP ,KC_BSPC ,KC_UP   ,KC_DEL  ,KC_PGDN ,_______ ,                          _______ ,XXXXXXX ,KC_7    ,KC_8    ,KC_9    ,XXXXXXX ,_______ ,
+     _______ ,KC_PGUP ,KC_BSPC ,KC_UP   ,KC_DEL  ,KC_PGDN ,_______ ,                          _______ ,XXXXXXX ,KC_7    ,KC_8    ,KC_9    ,OSL(_FK) ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────
      _______ ,KC_HOME ,KC_LEFT ,KC_DOWN ,KC_RIGHT,KC_END  ,_______ ,                          _______ ,KC_0    ,KC_4    ,KC_5    ,KC_6    ,TO(_FK) ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
