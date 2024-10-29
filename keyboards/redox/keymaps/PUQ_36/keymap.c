@@ -27,7 +27,6 @@ enum custom_keycodes
   DIAKRIT,
   OFF_FK,
   CIRCU,
-  GRAVE,
   OS_MODE,
   D_20,
   D_30,
@@ -138,14 +137,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 			if(record->event.pressed)
 			{
 				tap_key(DE_CIRC);
-				tap_key(KC_SPC);
-				return false;
-			}
-			break;
-		case GRAVE:
-			if(record->event.pressed)
-			{
-				tap_key(DE_GRV);
 				tap_key(KC_SPC);
 				return false;
 			}
