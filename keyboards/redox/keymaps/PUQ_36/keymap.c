@@ -16,10 +16,8 @@
 #define KC_RTAB S(KC_TAB)
 
 #define CTL_ALT OSM(MOD_LCTL | MOD_LALT)
-#define OS_LSFT OSM(MOD_LSFT)
-#define OS_LCTL OSM(MOD_LCTL)
-#define OS_RALT OSM(MOD_RALT)
-#define OS_LALT OSM(MOD_LALT)
+#define MD_WIN_SPC MT(MOD_RGUI,KC_SPC)
+#define MD_LSFT_ESC MT(MOD_LSFT,KC_ESC)
 
 enum custom_keycodes
 {
@@ -234,7 +232,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,DE_K    ,DE_Y    ,DE_DOT  ,DE_SCLN ,DE_X    ,XXXXXXX ,XXXXXXX ,        XXXXXXX ,XXXXXXX ,DE_J    ,DE_V    ,DE_W    ,DE_B    ,DE_Z    ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,     KC_LSFT ,    MO(_NAV),KC_LCTL ,        KC_LALT ,MO(_SYM),    KC_SPC  ,     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,    MD_LSFT_ESC  ,MO(_NAV),KC_LCTL ,        KC_LALT ,MO(_SYM),   MD_WIN_SPC    ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
